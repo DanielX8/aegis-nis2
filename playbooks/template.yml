@@ -1,0 +1,12 @@
+id: generic-incident-response
+name: Generic Security Incident Response Template
+trigger:
+  mitre_techniques: ["T1000"]
+  severity: ["LOW", "MEDIUM"]
+steps:
+  - name: Log Ingestion & Evidence Preservation
+    action: record_evidence
+    description: Capture raw logs and timestamp.
+  - name: SOC Notification
+    action: notify_soc
+    description: Queue ticket for Tier-1 analyst triage.

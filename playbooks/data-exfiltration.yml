@@ -1,0 +1,12 @@
+id: data-exfiltration-response
+name: Data Exfiltration Containment Playbook
+trigger:
+  mitre_techniques: ["T1048", "T1003"]
+  severity: ["CRITICAL", "HIGH"]
+steps:
+  - name: Kill Exfiltration Socket
+    action: block_source_ip
+    description: Terminate TCP sessions to external drop points.
+  - name: Enforce Host Containment
+    action: isolate_host
+    description: Isolate compromised host executing credential dumping.
