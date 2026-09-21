@@ -174,8 +174,30 @@ tests/test_triage.py ..................... PASSED [100%]
 
 ---
 
-## 📖 In-Depth Project Documentation
+## 🗺️ Enterprise Expansion Roadmap (v1.1 / v2.0)
 
+Aegis NIS2 is architected with a modular, pluggable action dispatcher. The following enterprise capabilities are on the development roadmap for large-scale production deployments:
+
+### 🔑 1. Identity & Access Management (IAM / IdP)
+- **Session Revocation (`action: revoke_idp_sessions`)**: Invalidate Okta and Microsoft Entra ID (Azure AD) refresh tokens and active web sessions upon credential dumping (`T1003`) detection.
+- **FIDO2 Step-Up MFA (`action: force_mfa_stepup`)**: Trigger mandatory hardware token / authenticator step-up challenges for compromised user accounts.
+- **Directory Account Suspension (`action: suspend_directory_user`)**: Automate temporary Google Workspace / Active Directory account lockouts.
+
+### ☁️ 2. Cloud Infrastructure & Kubernetes
+- **AWS / Azure Security Group Swap (`action: isolate_cloud_vm`)**: Dynamically detach production security groups and attach restrictive `quarantine-sg` rules on compromised EC2/Azure VMs.
+- **IAM Key Revocation (`action: revoke_cloud_keys`)**: Deactivate compromised cloud access keys and rotate temporary STS credentials.
+- **Kubernetes Pod Isolation (`action: cordon_k8s_pod`)**: Cordon and isolate compromised containers in dedicated quarantine network namespaces.
+
+### 🔬 3. Automated Digital Forensics & Incident Response (DFIR)
+- **Disk Snapshot Preservation (`action: snapshot_disk`)**: Automate instantaneous AWS EBS or VMware disk snapshots prior to host isolation to preserve chain of custody for legal and insurance audits.
+- **In-Memory Forensics Capture (`action: capture_volatile_memory`)**: Trigger automated memory dumps via WinPmem / LiME to preserve encryption keys and in-memory C2 artifacts.
+
+### 📡 4. Enterprise Communications & Threat Sharing
+- **Automated Incident War Rooms (`action: notify_slack_war_room`)**: Spin up dedicated Slack/Teams incident channels (`#inc-2026-09-xxx`) with pre-populated triage briefs and CISO alerts.
+- **On-Call Escalations (`action: trigger_pagerduty`)**: Route high-priority PagerDuty / Opsgenie alerts to Tier-3 incident commanders.
+- **Direct MISP & OpenCTI Synchronization**: Bi-directional REST API integration pushing STIX 2.1 threat bundles directly into national CSIRT feeds.
+
+## 📖 In-Depth Project Documentation
 For a comprehensive architectural breakdown and engineering walkthrough, see:
 - [Aegis-nis2BOOK.md](Aegis-nis2BOOK.md) — *The complete 9-chapter architecture and technical handbook.*
 - [docs/nis2-article21-mapping.md](docs/nis2-article21-mapping.md) — *Clause-by-clause Article 21 technical mapping.*

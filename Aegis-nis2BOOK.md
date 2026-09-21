@@ -281,3 +281,28 @@ python -c "from aegis.dashboard import app; app.run(port=5000, debug=True)"
 - **IoC**: Indicator of Compromise (e.g., malicious IP, domain, file hash).
 - **Wazuh**: Open-source unified XDR and SIEM platform.
 - **Early Warning**: Mandatory initial notification sent to authorities within 24 hours of incident awareness under NIS2 Article 23(4)(a).
+---
+
+# 10. Enterprise Expansion Roadmap & Production Hardening
+
+When deploying Aegis NIS2 into enterprise environments, the core engine serves as the central control plane, while modular action handlers plug directly into enterprise infrastructure:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    Aegis NIS2 Control & Triage Plane                    │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+          ┌──────────────────────────┼──────────────────────────┐
+          ▼                          ▼                          ▼
+┌──────────────────┐       ┌──────────────────┐       ┌──────────────────┐
+│ Identity (IdP)   │       │ Cloud & K8s      │       │ Forensics (DFIR) │
+│ - Okta / Entra ID│       │ - AWS EC2 / IAM  │       │ - EBS Snapshots  │
+│ - Token Revoke   │       │ - Azure / GCP    │       │ - WinPmem / LiME │
+│ - Step-up MFA    │       │ - K8s Pod Cordon │       │ - Memory Dumps   │
+└──────────────────┘       └──────────────────┘       └──────────────────┘
+```
+
+1. **Identity Actions**: Automated Okta/Entra token invalidation on credential stuffing.
+2. **Cloud Actions**: Instantaneous security group swaps and IAM key rotations.
+3. **Forensic Preservation**: Disk snapshots and memory dumps taken automatically before network isolation.
+4. **Operations Integrations**: Slack war room generation, PagerDuty escalations, and direct MISP/OpenCTI STIX 2.1 synchronization.
