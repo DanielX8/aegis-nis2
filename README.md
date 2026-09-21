@@ -21,6 +21,14 @@
 
 ## 🏗️ System Architecture
 
+[![Aegis NIS2 Interactive Architecture](docs/aegis-arch-dark.png)](https://danielx8.github.io/aegis-nis2/)
+
+<p align="center">
+  <a href="https://danielx8.github.io/aegis-nis2/">
+    <img src="https://img.shields.io/badge/⚡%20Launch%20Live%20Interactive%20Diagram-GitHub%20Pages-6366f1?style=for-the-badge&logo=html5&logoColor=white" alt="Live Interactive Architecture">
+  </a>
+</p>
+
 ```
 ┌───────────────────────────┐      ┌───────────────────────────┐
 │   Raw Telemetry Sources   │      │    SIEM / EDR Ingest      │
@@ -64,12 +72,7 @@
                            └─────────────────────────────┘
 ```
 
-> 🔍 **Interactive Topology**: Explore the standalone SVG system diagram in [docs/architecture.html](docs/architecture.html).
-
----
-
 ## 🚀 Key Features
-
 - 🎯 **Automated Telemetry Normalization**: Parses nested Wazuh JSON and RFC-3164/5424 Syslog streams into structured Pydantic v2 domain models.
 - ⏱️ **NIS2 Article 23 Compliance Radar**: Autonomously tracks statutory deadlines:
   - **24-Hour Early Warning** (Art. 23(4)(a))
