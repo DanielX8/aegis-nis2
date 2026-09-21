@@ -29,47 +29,61 @@
   </a>
 </p>
 
-```
-┌───────────────────────────┐      ┌───────────────────────────┐
-│   Raw Telemetry Sources   │      │    SIEM / EDR Ingest      │
-│  (Wazuh JSON, Syslog, CEF)│ ───▶ │  src/aegis/normalizer.py  │
-└───────────────────────────┘      └─────────────┬─────────────┘
-                                                 │
-                                       Produces `Alert`
-                                                 │
-                                                 ▼
-                                   ┌───────────────────────────┐
-                                   │     Triage Engine         │
-                                   │   src/aegis/triage.py     │
-                                   │  - MITRE ATT&CK Mapping   │
-                                   │  - NIS2 24h Clock Init    │
-                                   └─────────────┬─────────────┘
-                                                 │
-                                     Produces `Incident`
-                                                 │
-                                                 ▼
-                                   ┌───────────────────────────┐
-                                   │   SQLite Incident Store   │
-                                   │     src/aegis/db.py       │
-                                   └──────┬─────────────┬──────┘
-                                          │             │
-                    ┌─────────────────────┘             └─────────────────────┐
-                    ▼                                                         ▼
-     ┌─────────────────────────────┐                           ┌─────────────────────────────┐
-     │  Containment Playbooks      │                           │  Article 23 & STIX Exporter │
-     │  src/aegis/quarantine.py    │                           │  src/aegis/reporter.py      │
-     │  src/aegis/playbooks.py     │                           │  src/aegis/threat_intel.py  │
-     │  - Host Isolation           │                           │  - 24h Early Warning (Jinja)│
-     │  - IP Perimeter Firewall    │                           │  - STIX 2.1 Threat Bundles  │
-     └──────────────┬──────────────┘                           └──────────────┬──────────────┘
-                    │                                                         │
-                    └─────────────────────┬───────────────────────────────────┘
-                                          ▼
-                           ┌─────────────────────────────┐
-                           │    Operations Radar & CLI   │
-                           │     src/aegis/cli.py        │
-                           │     src/aegis/dashboard.py  │
-                           └─────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph INGEST["1. Telemetry Ingestion"]
+        W["Wazuh EDR JSON"]
+        S["Syslog RFC-3164/5424"]
+        N["Normalizer (normalizer.py)"]
+        W --> N
+        S --> N
+    end
+
+    subgraph TRIAGE["2. Triage & MITRE Classification"]
+        A["Unified Alert"]
+        T["Triage Engine (triage.py)"]
+        M["MITRE ATT&CK Mapping (T1490, T1486, T1003, T1110)"]
+        N --> A --> T --> M
+    end
+
+    subgraph STORE["3. Persistence & Audit Trail"]
+        I["Incident Object"]
+        DB[("SQLite Store (db.py)")]
+        M --> I --> DB
+    end
+
+    subgraph RESPONSE["4. Automated Containment (Phase 2)"]
+        PB["Playbook Runner (playbooks.py)"]
+        Q["Quarantine Engine (quarantine.py)"]
+        PB -->|Host Isolation| Q
+        PB -->|IP Firewall Block| Q
+        I -->|Critical / High Severity| PB
+    end
+
+    subgraph COMPLIANCE["5. NIS2 Article 23 & STIX 2.1 (Phase 3)"]
+        REP["Reporter (reporter.py)"]
+        STIX["Threat Intel (threat_intel.py)"]
+        EW["24h Early Warning (Art. 23(4)(a))"]
+        NOTIF["72h Incident Notification (Art. 23(4)(b))"]
+        SB["STIX 2.1 JSON Bundle"]
+        I --> REP --> EW
+        REP --> NOTIF
+        I --> STIX --> SB
+    end
+
+    subgraph RADAR["6. Operations Radar (Phase 4)"]
+        CLI["Rich CLI (cli.py)"]
+        DASH["Flask + HTMX Radar (dashboard.py)"]
+        DB --> CLI
+        DB --> DASH
+    end
+
+    style INGEST fill:#1e1b4b,stroke:#6366f1,stroke-width:2px,color:#fff
+    style TRIAGE fill:#311042,stroke:#c084fc,stroke-width:2px,color:#fff
+    style STORE fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
+    style RESPONSE fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fff
+    style COMPLIANCE fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
+    style RADAR fill:#1e293b,stroke:#94a3b8,stroke-width:2px,color:#fff
 ```
 
 ## 🚀 Key Features
