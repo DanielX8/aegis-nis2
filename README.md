@@ -180,8 +180,22 @@ For a comprehensive architectural breakdown and engineering walkthrough, see:
 
 ---
 
-## 📄 License
+---
 
+## 👤 About the Author & Project Background
+
+**Aegis NIS2** was conceived and engineered by **Daniel Odhiambo**, an IT Systems Administrator and Cybersecurity graduate based in Nairobi, Kenya.
+
+- **Academic Background**: BSc in Cybersecurity & Computer Networks from Strathmore University.
+- **Hands-On Specialization**: Enterprise systems administration, Bare-Metal OS recovery, SIEM telemetry correlation (Wazuh, Zeek, Suricata), and Active Defense scripting.
+- **Why this project exists**: With the European Union's **Directive (EU) 2022/2555 (NIS2)** enforcing strict 24-hour incident disclosure windows on essential entities, manual alert triage creates immense regulatory exposure. Aegis NIS2 bridges low-level telemetry engineering with statutory compliance requirements to eliminate alert fatigue and ensure auditable incident reporting.
+
+Connect & Collaborate:
+- 💼 **LinkedIn**: [Daniel Odhiambo](https://www.linkedin.com/in/daniel-odhiambo-7b794121b/)
+- 🐙 **GitHub**: [@DanielX8](https://github.com/DanielX8)
+- 📧 **Contact**: [daniel.o.odhiambo1@gmail.com](mailto:daniel.o.odhiambo1@gmail.com)
+
+## 📄 License
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 **Author**: Daniel Odhiambo  
