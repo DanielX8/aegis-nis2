@@ -1,0 +1,15 @@
+id: ransomware-response
+name: NIS2 Urgent Ransomware Containment Playbook
+trigger:
+  mitre_techniques: ["T1486", "T1490"]
+  severity: ["CRITICAL"]
+steps:
+  - name: Host Network Isolation
+    action: isolate_host
+    description: Disconnect infected endpoints from enterprise LAN to prevent lateral spread.
+  - name: Malicious IP Perimeter Block
+    action: block_source_ip
+    description: Drop ingress/egress connections at border firewall.
+  - name: NIS2 Early Warning Clock Initializer
+    action: start_nis2_clock
+    description: Calculate CSIRT/NCA mandatory 24-hour notification window.

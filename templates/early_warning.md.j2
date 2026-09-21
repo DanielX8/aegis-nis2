@@ -1,0 +1,25 @@
+# NIS2 Article 23(4)(a) — 24-Hour Early Warning Notification
+
+**Authority Reference**: {{ nca_reference | default("National Cybersecurity Authority (NCA) / CSIRT") }}  
+**Notification Date**: {{ generated_at.strftime('%Y-%m-%d %H:%M:%S UTC') }}  
+**Mandatory Submission Window**: Within 24 hours of becoming aware of the significant incident  
+
+---
+
+## 1. Entity & Incident Overview
+- **Incident Reference ID**: `{{ incident.id }}`
+- **Classification Level**: **{{ incident.severity.value | upper }}**
+- **Incident Initial Detection Time**: `{{ incident.detected_at.strftime('%Y-%m-%d %H:%M:%S UTC') }}`
+- **Suspected MITRE ATT&CK Technique**: `{{ incident.mitre_technique_id }} — {{ incident.mitre_technique_name }}`
+
+## 2. Early Assessment of Impact
+- **Unlawful / Malicious Acts Indicator**: Suspected malicious cyber activity.
+- **Cross-Border Impact Potential**: {{ "Yes - Potential cross-entity contagion detected" if incident.severity.value == "CRITICAL" else "No immediate cross-border disruption observed" }}
+- **Affected Assets / Hosts**: {{ incident.affected_hosts | join(', ') if incident.affected_hosts else "Under Investigation" }}
+
+## 3. Initial Containment Status
+- **Current Status**: `{{ incident.status.value }}`
+- **Actions Executed**: Containment playbooks initiated; endpoint isolation in progress.
+
+---
+*Generated autonomously by Aegis NIS2 Incident Response Engine v1.0*

@@ -1,0 +1,17 @@
+# NIS2 Article 23(4)(b) — 72-Hour Incident Notification
+
+**Notification Date**: {{ generated_at.strftime('%Y-%m-%d %H:%M:%S UTC') }}  
+**Mandatory Submission Window**: Within 72 hours of initial triage  
+
+---
+
+## 1. Comprehensive Incident Assessment
+- **Incident ID**: `{{ incident.id }}`
+- **Severity**: **{{ incident.severity.value }}**
+- **Indicators of Compromise (IoCs)**:
+  - Source IPs: `{{ incident.source_ips | join(', ') if incident.source_ips else "N/A" }}`
+  - MITRE Technique: `{{ incident.mitre_technique_id }}`
+
+## 2. Mitigation & Technical Response
+- Playbook containment execution confirmed.
+- Forensic artifact preservation completed.

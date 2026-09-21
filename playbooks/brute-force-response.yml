@@ -1,0 +1,9 @@
+id: brute-force-response
+name: Automated Brute Force Triage & Lockout Playbook
+trigger:
+  mitre_techniques: ["T1110"]
+  severity: ["MEDIUM", "HIGH"]
+steps:
+  - name: Temporary Ingress Block
+    action: block_source_ip
+    description: Block offending external IP on bastion ingress tables.
